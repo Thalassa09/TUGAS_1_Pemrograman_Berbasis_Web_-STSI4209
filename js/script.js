@@ -1,7 +1,6 @@
 /**
  * SCRIPT.JS - LOGIKA FRONT-END SITTA UNIVERSITAS TERBUKA
  * Tugas Praktik 1 - STSI4209 Pemrograman Berbasis Web
- * Mahasiswa: Aulia Ardi Nur Waluyo (NIM: 052144403)
  */
 
 document.addEventListener("DOMContentLoaded", function () {
@@ -43,8 +42,8 @@ function getCurrentUser() {
     return dataPengguna[0];
   }
   return {
-    nama: "Aulia Ardi Nur Waluyo",
-    role: "Mahasiswa / User",
+    nama: "Pengguna SITTA",
+    role: "UPBJJ-UT",
     lokasi: "UPBJJ Jakarta"
   };
 }

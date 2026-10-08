@@ -1,16 +1,7 @@
 # Tugas Praktik 1: Pemrograman Berbasis Web (STSI4209)
-### Universitas Terbuka — Program Studi Sistem Informasi
+### Universitas Terbuka
 
 Aplikasi Front-End Web untuk **SITTA (Sistem Informasi Tiras dan Transaksi Bahan Ajar) Universitas Terbuka**.
-
----
-
-## 📌 Identitas Mahasiswa
-- **Nama** : Aulia Ardi Nur Waluyo
-- **NIM** : 052144403
-- **Program Studi** : Sistem Informasi
-- **UPBJJ** : UPBJJ-UT Jakarta Selatan
-- **Mata Kuliah** : STSI4209 – Pemrograman Berbasis Web
 
 ---
 
