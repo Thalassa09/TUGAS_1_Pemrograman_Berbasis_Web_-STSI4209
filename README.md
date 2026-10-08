@@ -5,13 +5,14 @@ Aplikasi Front-End Web untuk **SITTA (Sistem Informasi Tiras dan Transaksi Bahan
 
 ---
 
-## 🌐 Live Demo & Deployment
+## Live Demo & Deployment
 Aplikasi telah dideploy dan dapat diakses secara publik di:
-👉 **[https://sitta-praktik-eight.vercel.app](https://sitta-praktik-eight.vercel.app)**
+- **Tautan Live:** [https://sitta-praktik-eight.vercel.app](https://sitta-praktik-eight.vercel.app)
+- **Repositori GitHub:** [https://github.com/Thalassa09/TUGAS_1_Pemrograman_Berbasis_Web_-STSI4209](https://github.com/Thalassa09/TUGAS_1_Pemrograman_Berbasis_Web_-STSI4209)
 
 ---
 
-## 📂 Struktur Direktori Proyek
+## Struktur Direktori Proyek
 
 ```text
 sitta-praktik/
@@ -34,7 +35,7 @@ sitta-praktik/
 
 ---
 
-## 🚀 Fitur & Implementasi Halaman
+## Fitur & Implementasi Halaman
 
 ### 1. Halaman Login (`index.html` / `login.html`)
 - Validasi kredensial email & password terhadap `dataPengguna` pada `data.js`.
@@ -62,12 +63,12 @@ sitta-praktik/
 ### 4. Informasi Stok Bahan Ajar (`stok.html`)
 - Menampilkan data master BMP secara dinamis dari konstanta `dataBahanAjar` pada `data.js`.
 - Fitur penambahan baris stok baru menggunakan manipulasi DOM murni (`document.createElement('tr')` dan `appendChild`) tanpa reload halaman.
-- Indikator status stok aman (>300), sedang (181-300), dan menipis (≤180).
+- Indikator status stok aman (>300), sedang (181-300), dan menipis (<=180).
 - Fitur pencarian instan (*live search*) pada tabel bahan ajar.
 
 ---
 
-## 🛠️ Teknologi yang Digunakan
+## Teknologi yang Digunakan
 - **HTML5** (Semantik & Standar W3C)
 - **CSS3** (CSS Variables, Flexbox, CSS Grid, Transisi Halus)
 - **JavaScript (ES6+)** (DOM Manipulation, Event Handling, LocalStorage)
