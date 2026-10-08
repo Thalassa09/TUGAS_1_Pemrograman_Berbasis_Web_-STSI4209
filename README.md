@@ -54,8 +54,8 @@ sitta-praktik/
 ### 3. Tracking Pengiriman (`tracking.html`)
 - Pencarian resi berbasis Nomor Delivery Order (DO) dari `dataTracking` di `data.js`.
 - *Uji Coba Resi Dummy:*
-  - `2023001234` : Rina Wulandari (JNE) — Status: *Dalam Perjalanan*
-  - `2023005678` : Agus Pranoto (Pos Indonesia) — Status: *Selesai Antar*
+  - `2023001234` : Rina Wulandari (JNE), Status: *Dalam Perjalanan*
+  - `2023005678` : Agus Pranoto (Pos Indonesia), Status: *Selesai Antar*
 - Simulasi visual progress status dengan **Stepper Bar 4 Tahap**.
 - Linimasa logistik riwayat perjalanan paket dirender kronologis.
 
