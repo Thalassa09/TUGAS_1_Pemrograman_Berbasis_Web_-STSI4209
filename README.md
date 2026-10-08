@@ -7,7 +7,7 @@ Aplikasi Front-End Web untuk **SITTA (Sistem Informasi Tiras dan Transaksi Bahan
 
 ## Live Demo & Deployment
 Aplikasi telah dideploy dan dapat diakses secara publik di:
-- **Tautan Live:** [https://sitta-praktik-eight.vercel.app](https://sitta-praktik-eight.vercel.app)
+- **Tautan Live:** [https://sitta-praktik.vercel.app](https://sitta-praktik.vercel.app)
 - **Repositori GitHub:** [https://github.com/Thalassa09/TUGAS_1_Pemrograman_Berbasis_Web_-STSI4209](https://github.com/Thalassa09/TUGAS_1_Pemrograman_Berbasis_Web_-STSI4209)
 
 ---
