@@ -1,0 +1,162 @@
+<!DOCTYPE html>
+<html lang="id">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Dashboard - SITTA Universitas Terbuka</title>
+  <link rel="stylesheet" href="css/style.css">
+</head>
+<body>
+
+  <!-- Site Header -->
+  <header class="site-header">
+    <div class="header-top">
+      <a href="dashboard.html" class="brand-wrapper">
+        <img src="assets/logo-ut.png" alt="Logo UT" class="brand-logo">
+        <div>
+          <div class="brand-title">SITTA UNIVERSITAS TERBUKA</div>
+          <div class="brand-subtitle">Sistem Informasi Tiras &amp; Transaksi Bahan Ajar</div>
+        </div>
+      </a>
+
+      <div class="user-badge">
+        <div class="user-info">
+          <div class="user-name" id="headerUserName">Memuat...</div>
+          <div class="user-role" id="headerUserRole">User</div>
+        </div>
+        <button id="btnLogout" class="btn-logout" title="Keluar dari sistem">Logout</button>
+      </div>
+    </div>
+
+    <!-- Navigation Bar Utama -->
+    <nav class="navbar" aria-label="Navigasi Utama">
+      <ul class="nav-list">
+        <li class="nav-item">
+          <a href="dashboard.html" class="nav-link active">Dashboard</a>
+        </li>
+        <li class="nav-item">
+          <a href="stok.html" class="nav-link">Informasi Bahan Ajar</a>
+        </li>
+        <li class="nav-item">
+          <a href="tracking.html" class="nav-link">Tracking Pengiriman</a>
+        </li>
+        <li class="nav-item has-dropdown">
+          <a href="#" class="nav-link" id="navLaporan" onclick="return false;">Laporan &#9662;</a>
+          <div class="dropdown-menu">
+            <a href="#" class="dropdown-item" onclick="showCustomAlert('Fitur Monitoring Progress DO Bahan Ajar menampilkan rekapitulasi pengiriman bahan ajar antar UPBJJ.', 'Monitoring Progress DO', '📊'); return false;">
+              Monitoring Progress DO Bahan Ajar
+            </a>
+            <a href="#" class="dropdown-item" onclick="showCustomAlert('Fitur Rekap Bahan Ajar menyajikan data perputaran sirkulasi buku ajar per semester.', 'Rekap Bahan Ajar', '📑'); return false;">
+              Rekap Bahan Ajar
+            </a>
+          </div>
+        </li>
+        <li class="nav-item">
+          <a href="#" class="nav-link" onclick="showCustomAlert('Histori Transaksi Bahan Ajar memuat rekaman seluruh pesanan DO yang telah selesai dan diarsipkan.', 'Histori Transaksi', '🕒'); return false;">
+            Histori Transaksi Bahan Ajar
+          </a>
+        </li>
+      </ul>
+    </nav>
+  </header>
+
+  <!-- Main Content -->
+  <main class="main-container">
+    
+    <!-- Hero Greeting Berdasarkan Waktu Local Time -->
+    <section class="greeting-hero">
+      <div class="greeting-text">
+        <h1 id="dashboardGreeting">Selamat Datang</h1>
+        <p>Selamat datang di Pusat Kendali Distribusi &amp; Informasi Bahan Ajar Universitas Terbuka.</p>
+      </div>
+      <div class="greeting-time-badge">
+        <div class="time-clock" id="liveClockTime">--:--:-- WIB</div>
+        <div class="time-date" id="liveClockDate">Memuat tanggal...</div>
+      </div>
+    </section>
+
+    <!-- Quick Navigation Cards Grid -->
+    <section>
+      <h2 class="section-title" style="margin-bottom: 16px;">Menu Layanan Utama</h2>
+      <div class="dashboard-grid">
+        
+        <a href="stok.html" class="dash-card">
+          <div class="dash-card-icon">📚</div>
+          <h3 class="dash-card-title">Informasi Bahan Ajar</h3>
+          <p class="dash-card-desc">Cek ketersediaan stok buku materi pokok (BMP), kode lokasi gudang, dan kelola penambahan stok baru.</p>
+          <div class="dash-card-cta">Buka Katalog Stok &rarr;</div>
+        </a>
+
+        <a href="tracking.html" class="dash-card">
+          <div class="dash-card-icon">🚚</div>
+          <h3 class="dash-card-title">Tracking Pengiriman</h3>
+          <p class="dash-card-desc">Lacak status ekspedisi pengiriman paket Delivery Order (DO) bahan ajar ke mahasiswa dan UPBJJ daerah.</p>
+          <div class="dash-card-cta">Lacak Paket DO &rarr;</div>
+        </a>
+
+        <div class="dash-card" style="cursor: pointer;" onclick="showCustomAlert('Laporan Monitoring DO menyajikan status real-time pesanan yang sedang diproses di loket maupun transit ekspedisi.', 'Monitoring DO', '📊')">
+          <div class="dash-card-icon">📈</div>
+          <h3 class="dash-card-title">Monitoring Progress DO</h3>
+          <p class="dash-card-desc">Pantau progres pengiriman bahan ajar yang sedang aktif dan estimasi tiba di tujuan.</p>
+          <div class="dash-card-cta">Lihat Monitoring &rarr;</div>
+        </div>
+
+        <div class="dash-card" style="cursor: pointer;" onclick="showCustomAlert('Rekapitulasi Bahan Ajar merinci total stok masuk, stok terdistribusi, dan persentase serapan BMP semester ini.', 'Rekap Stok', '📦')">
+          <div class="dash-card-icon">📋</div>
+          <h3 class="dash-card-title">Rekap Bahan Ajar</h3>
+          <p class="dash-card-desc">Laporan konsolidasi stok tiras bahan ajar per UPBJJ-UT dan Fakultas seluruh Indonesia.</p>
+          <div class="dash-card-cta">Buka Rekapitulasi &rarr;</div>
+        </div>
+
+      </div>
+    </section>
+
+    <!-- Ringkasan Statistik Singkat -->
+    <section class="card-section">
+      <h2 class="section-title">Informasi Sistem SITTA</h2>
+      <p class="section-subtitle">Sistem Informasi Tiras dan Transaksi Bahan Ajar (Front-End Mode)</p>
+      
+      <div style="display: grid; grid-template-columns: repeat(auto-fit, minmax(200px, 1fr)); gap: 16px; margin-top: 14px;">
+        <div style="background: #F8FAFC; border: 1px solid #E2E8F0; padding: 16px; border-radius: 8px;">
+          <div style="font-size: 0.8rem; color: #64748B;">Total Judul BMP Aktif</div>
+          <div style="font-size: 1.6rem; font-weight: 700; color: var(--ut-primary);">5 Judul</div>
+          <div style="font-size: 0.75rem; color: #16A34A;">Tersedia di Gudang Dummy</div>
+        </div>
+        <div style="background: #F8FAFC; border: 1px solid #E2E8F0; padding: 16px; border-radius: 8px;">
+          <div style="font-size: 0.8rem; color: #64748B;">Data Pengguna Terdaftar</div>
+          <div style="font-size: 1.6rem; font-weight: 700; color: var(--ut-primary);">5 Pengguna</div>
+          <div style="font-size: 0.75rem; color: #0284C7;">UPBJJ, Pusat, Fakultas</div>
+        </div>
+        <div style="background: #F8FAFC; border: 1px solid #E2E8F0; padding: 16px; border-radius: 8px;">
+          <div style="font-size: 0.8rem; color: #64748B;">Paket DO Terlacak</div>
+          <div style="font-size: 1.6rem; font-weight: 700; color: var(--ut-primary);">2 Resi Aktif</div>
+          <div style="font-size: 0.75rem; color: #D97706;">JNE &amp; Pos Indonesia</div>
+        </div>
+      </div>
+    </section>
+
+  </main>
+
+  <!-- Modal Box: Custom Alert Box / Pop-up Feedback -->
+  <div class="modal-overlay" id="modalAlert">
+    <div class="modal-box" style="max-width: 400px;">
+      <div class="modal-body alert-box">
+        <div class="alert-icon" id="alertIcon">⚠️</div>
+        <h3 id="alertTitle" style="color: var(--ut-primary); margin-bottom: 8px; font-size: 1.15rem;">Pemberitahuan</h3>
+        <p class="alert-message" id="alertMessage">Pesan informasi</p>
+        <button type="button" class="btn-primary btn-modal-close" style="width: 120px; margin: 0 auto; display: block;">OK</button>
+      </div>
+    </div>
+  </div>
+
+  <!-- Footer -->
+  <footer class="site-footer">
+    <p>&copy; 2026 <strong>SITTA Universitas Terbuka</strong> &bull; Praktik Pemrograman Berbasis Web (STSI4209)</p>
+    <p style="margin-top: 4px; color: #64748B;">Disusun oleh: Aulia Ardi Nur Waluyo (NIM: 052144403) &bull; UPBJJ-UT Jakarta Selatan</p>
+  </footer>
+
+  <!-- Import JS -->
+  <script src="js/data.js"></script>
+  <script src="js/script.js"></script>
+</body>
+</html>

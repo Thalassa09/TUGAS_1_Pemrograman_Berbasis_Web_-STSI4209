@@ -1,0 +1,147 @@
+<!DOCTYPE html>
+<html lang="id">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Login - SITTA Universitas Terbuka</title>
+  <link rel="stylesheet" href="css/style.css">
+</head>
+<body class="login-body">
+
+  <div class="login-card">
+    <div class="login-header">
+      <img src="assets/logo-ut.png" alt="Logo Universitas Terbuka" class="login-logo">
+      <h1 class="login-title">SITTA UT</h1>
+      <p class="login-subtitle">Sistem Informasi Tiras &amp; Transaksi Bahan Ajar</p>
+    </div>
+
+    <!-- Form Login Utama -->
+    <form id="formLogin" novalidate>
+      <div class="form-group">
+        <label for="inputEmail" class="form-label">Alamat Email UT</label>
+        <input 
+          type="email" 
+          id="inputEmail" 
+          class="form-input" 
+          placeholder="nama@ut.ac.id" 
+          required 
+          autocomplete="username"
+        >
+      </div>
+
+      <div class="form-group">
+        <label for="inputPassword" class="form-label">Kata Sandi (Password)</label>
+        <input 
+          type="password" 
+          id="inputPassword" 
+          class="form-input" 
+          placeholder="Masukkan password" 
+          required 
+          autocomplete="current-password"
+        >
+      </div>
+
+      <div class="login-meta">
+        <button type="button" id="btnLupaPassword" class="link-btn">Lupa Password?</button>
+      </div>
+
+      <button type="submit" class="btn-primary" id="btnSubmitLogin">Masuk ke Sistem</button>
+
+      <div class="login-footer-links">
+        Belum punya akun? <button type="button" id="btnDaftar" class="link-btn">Daftar Akun Baru</button>
+      </div>
+    </form>
+
+    <div class="dummy-hint">
+      <strong>Akun Uji Coba (Dummy data.js):</strong>
+      <div>• <code>admin@ut.ac.id</code> / <code>admin123</code> (Admin SITTA)</div>
+      <div>• <code>rina@ut.ac.id</code> / <code>rina123</code> (UPBJJ Jakarta)</div>
+      <div>• <code>agus@ut.ac.id</code> / <code>agus123</code> (UPBJJ Makassar)</div>
+    </div>
+  </div>
+
+  <!-- Modal Box: Lupa Password -->
+  <div class="modal-overlay" id="modalLupaPassword">
+    <div class="modal-box">
+      <div class="modal-header">
+        <h3 class="modal-title">Lupa Password</h3>
+        <button type="button" class="modal-close" aria-label="Tutup">&times;</button>
+      </div>
+      <form id="formLupaPassword">
+        <div class="modal-body">
+          <p style="font-size: 0.9rem; color: #64748B; margin-bottom: 16px;">
+            Masukkan alamat email Universitas Terbuka Anda yang terdaftar. Kami akan mengirimkan tautan untuk mengatur ulang kata sandi Anda.
+          </p>
+          <div class="form-group">
+            <label for="inputResetEmail" class="form-label">Email Terdaftar</label>
+            <input type="email" id="inputResetEmail" class="form-input" placeholder="contoh: rina@ut.ac.id" required>
+          </div>
+        </div>
+        <div class="modal-footer">
+          <button type="button" class="btn-secondary btn-modal-close">Batal</button>
+          <button type="submit" class="btn-primary" style="width: auto; padding: 8px 18px;">Kirim Tautan Reset</button>
+        </div>
+      </form>
+    </div>
+  </div>
+
+  <!-- Modal Box: Registrasi / Daftar Akun Baru -->
+  <div class="modal-overlay" id="modalDaftar">
+    <div class="modal-box">
+      <div class="modal-header">
+        <h3 class="modal-title">Pendaftaran Akun SITTA</h3>
+        <button type="button" class="modal-close" aria-label="Tutup">&times;</button>
+      </div>
+      <form id="formDaftar">
+        <div class="modal-body">
+          <div class="form-group">
+            <label for="inputDaftarNama" class="form-label">Nama Lengkap *</label>
+            <input type="text" id="inputDaftarNama" class="form-input" placeholder="Nama lengkap staf/dosen" required>
+          </div>
+          <div class="form-group">
+            <label for="inputDaftarEmail" class="form-label">Alamat Email UT *</label>
+            <input type="email" id="inputDaftarEmail" class="form-input" placeholder="user@ut.ac.id" required>
+          </div>
+          <div class="form-group">
+            <label for="inputDaftarPassword" class="form-label">Kata Sandi *</label>
+            <input type="password" id="inputDaftarPassword" class="form-input" placeholder="Minimal 6 karakter" required>
+          </div>
+          <div class="form-group">
+            <label for="selectDaftarRole" class="form-label">Peran / Role</label>
+            <select id="selectDaftarRole" class="form-input">
+              <option value="UPBJJ-UT">UPBJJ-UT Daerah</option>
+              <option value="Fakultas">Fakultas</option>
+              <option value="Puslaba">Puslaba</option>
+              <option value="Administrator">Administrator</option>
+            </select>
+          </div>
+          <div class="form-group">
+            <label for="inputDaftarLokasi" class="form-label">Unit Kerja / Lokasi</label>
+            <input type="text" id="inputDaftarLokasi" class="form-input" placeholder="contoh: UPBJJ Bandung">
+          </div>
+        </div>
+        <div class="modal-footer">
+          <button type="button" class="btn-secondary btn-modal-close">Batal</button>
+          <button type="submit" class="btn-primary" style="width: auto; padding: 8px 20px;">Daftar Sekarang</button>
+        </div>
+      </form>
+    </div>
+  </div>
+
+  <!-- Modal Box: Custom Alert Box / Pop-up Feedback -->
+  <div class="modal-overlay" id="modalAlert">
+    <div class="modal-box" style="max-width: 400px;">
+      <div class="modal-body alert-box">
+        <div class="alert-icon" id="alertIcon">⚠️</div>
+        <h3 id="alertTitle" style="color: var(--ut-primary); margin-bottom: 8px; font-size: 1.15rem;">Pemberitahuan</h3>
+        <p class="alert-message" id="alertMessage">Pesan informasi</p>
+        <button type="button" class="btn-primary btn-modal-close" style="width: 120px; margin: 0 auto; display: block;">OK</button>
+      </div>
+    </div>
+  </div>
+
+  <!-- Import Data Dummy dan Skrip DOM -->
+  <script src="js/data.js"></script>
+  <script src="js/script.js"></script>
+</body>
+</html>

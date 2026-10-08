@@ -1,0 +1,202 @@
+<!DOCTYPE html>
+<html lang="id">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Informasi Stok Bahan Ajar - SITTA Universitas Terbuka</title>
+  <link rel="stylesheet" href="css/style.css">
+</head>
+<body>
+
+  <!-- Site Header -->
+  <header class="site-header">
+    <div class="header-top">
+      <a href="dashboard.html" class="brand-wrapper">
+        <img src="assets/logo-ut.png" alt="Logo UT" class="brand-logo">
+        <div>
+          <div class="brand-title">SITTA UNIVERSITAS TERBUKA</div>
+          <div class="brand-subtitle">Sistem Informasi Tiras &amp; Transaksi Bahan Ajar</div>
+        </div>
+      </a>
+
+      <div class="user-badge">
+        <div class="user-info">
+          <div class="user-name" id="headerUserName">Memuat...</div>
+          <div class="user-role" id="headerUserRole">User</div>
+        </div>
+        <button id="btnLogout" class="btn-logout" title="Keluar dari sistem">Logout</button>
+      </div>
+    </div>
+
+    <!-- Navigation Bar Utama -->
+    <nav class="navbar" aria-label="Navigasi Utama">
+      <ul class="nav-list">
+        <li class="nav-item">
+          <a href="dashboard.html" class="nav-link">Dashboard</a>
+        </li>
+        <li class="nav-item">
+          <a href="stok.html" class="nav-link active">Informasi Bahan Ajar</a>
+        </li>
+        <li class="nav-item">
+          <a href="tracking.html" class="nav-link">Tracking Pengiriman</a>
+        </li>
+        <li class="nav-item has-dropdown">
+          <a href="#" class="nav-link" id="navLaporan" onclick="return false;">Laporan &#9662;</a>
+          <div class="dropdown-menu">
+            <a href="#" class="dropdown-item" onclick="showCustomAlert('Laporan Monitoring DO Bahan Ajar', 'Laporan', '📊'); return false;">
+              Monitoring Progress DO Bahan Ajar
+            </a>
+            <a href="#" class="dropdown-item" onclick="showCustomAlert('Rekap Bahan Ajar', 'Laporan', '📑'); return false;">
+              Rekap Bahan Ajar
+            </a>
+          </div>
+        </li>
+        <li class="nav-item">
+          <a href="#" class="nav-link" onclick="showCustomAlert('Histori Transaksi Bahan Ajar', 'Histori', '🕒'); return false;">
+            Histori Transaksi Bahan Ajar
+          </a>
+        </li>
+      </ul>
+    </nav>
+  </header>
+
+  <!-- Main Content -->
+  <main class="main-container">
+    
+    <section class="card-section">
+      <div style="margin-bottom: 20px;">
+        <h1 class="section-title">Katalog &amp; Informasi Stok Bahan Ajar</h1>
+        <p class="section-subtitle">Data inventaris Buku Materi Pokok (BMP) Universitas Terbuka yang dimuat secara dinamis melalui JavaScript DOM dari <code>data.js</code>.</p>
+      </div>
+
+      <!-- Action Bar: Pencarian Cepat & Tombol Tambah Stok Baru -->
+      <div class="table-actions-bar">
+        <div style="max-width: 380px; width: 100%;">
+          <input 
+            type="text" 
+            id="searchStok" 
+            class="form-input" 
+            placeholder="Cari kode/nama mata kuliah..."
+          >
+        </div>
+        
+        <button type="button" class="btn-add-stock" id="btnBukaModalTambah">
+          <span style="font-size: 1.1rem; font-weight: 700;">+</span> Tambah Stok Baru
+        </button>
+      </div>
+
+      <!-- Tabel Data Bahan Ajar (Dirender secara dinamis oleh JavaScript DOM) -->
+      <div class="table-responsive">
+        <table class="data-table" id="tabelBahanAjar">
+          <thead>
+            <tr>
+              <th style="width: 50px;">No</th>
+              <th style="width: 70px;">Cover</th>
+              <th>Kode Lokasi</th>
+              <th>Kode BMP</th>
+              <th>Nama Mata Kuliah / Bahan Ajar</th>
+              <th>Jenis</th>
+              <th>Edisi</th>
+              <th>Stok Gudang</th>
+            </tr>
+          </thead>
+          <tbody>
+            <!-- Baris data di-generate otomatis oleh DOM di script.js -->
+          </tbody>
+        </table>
+      </div>
+
+      <div style="margin-top: 14px; font-size: 0.8rem; color: #64748B; display: flex; gap: 16px; align-items: center; flex-wrap: wrap;">
+        <strong>Keterangan Status Stok:</strong>
+        <span><span class="stock-pill stock-high">Stok &gt; 300</span> (Aman)</span>
+        <span><span class="stock-pill stock-med">Stok 181 - 300</span> (Sedang)</span>
+        <span><span class="stock-pill stock-low">Stok &le; 180</span> (Menipis)</span>
+      </div>
+    </section>
+
+  </main>
+
+  <!-- Modal Box: Tambah Baris Stok Baru Menggunakan DOM -->
+  <div class="modal-overlay" id="modalTambahStok">
+    <div class="modal-box" style="max-width: 560px;">
+      <div class="modal-header">
+        <h3 class="modal-title">Tambah Baris Stok Bahan Ajar</h3>
+        <button type="button" class="modal-close" aria-label="Tutup">&times;</button>
+      </div>
+      <form id="formTambahStok">
+        <div class="modal-body">
+          
+          <div style="display: grid; grid-template-columns: 1fr 1fr; gap: 14px;">
+            <div class="form-group">
+              <label for="inputKodeLokasi" class="form-label">Kode Lokasi Gudang *</label>
+              <input type="text" id="inputKodeLokasi" class="form-input" placeholder="contoh: 0JKT01" required>
+            </div>
+            <div class="form-group">
+              <label for="inputKodeBarang" class="form-label">Kode Barang / Matkul *</label>
+              <input type="text" id="inputKodeBarang" class="form-input" placeholder="contoh: STSI4209" required>
+            </div>
+          </div>
+
+          <div class="form-group">
+            <label for="inputNamaBarang" class="form-label">Nama Mata Kuliah / Bahan Ajar *</label>
+            <input type="text" id="inputNamaBarang" class="form-input" placeholder="contoh: Pemrograman Berbasis Web" required>
+          </div>
+
+          <div style="display: grid; grid-template-columns: 1fr 1fr; gap: 14px;">
+            <div class="form-group">
+              <label for="selectJenisBarang" class="form-label">Jenis Barang *</label>
+              <select id="selectJenisBarang" class="form-input">
+                <option value="BMP">BMP (Buku Materi Pokok)</option>
+                <option value="Panduan">Buku Panduan Praktik</option>
+                <option value="Non-BMP">Bahan Penunjang / Non-BMP</option>
+              </select>
+            </div>
+            <div class="form-group">
+              <label for="inputEdisi" class="form-label">Edisi Buku *</label>
+              <input type="number" id="inputEdisi" class="form-input" placeholder="1" min="1" value="1" required>
+            </div>
+          </div>
+
+          <div style="display: grid; grid-template-columns: 1fr 1fr; gap: 14px;">
+            <div class="form-group">
+              <label for="inputStok" class="form-label">Jumlah Stok Awal *</label>
+              <input type="number" id="inputStok" class="form-input" placeholder="Jumlah buku" min="0" required>
+            </div>
+            <div class="form-group">
+              <label for="inputCover" class="form-label">Path File Cover</label>
+              <input type="text" id="inputCover" class="form-input" value="img/pengantar_komunikasi.jpg">
+            </div>
+          </div>
+
+        </div>
+        <div class="modal-footer">
+          <button type="button" class="btn-secondary btn-modal-close">Batal</button>
+          <button type="submit" class="btn-primary" style="width: auto; padding: 9px 22px;">Simpan ke Stok</button>
+        </div>
+      </form>
+    </div>
+  </div>
+
+  <!-- Modal Box: Custom Alert Box / Pop-up Feedback -->
+  <div class="modal-overlay" id="modalAlert">
+    <div class="modal-box" style="max-width: 400px;">
+      <div class="modal-body alert-box">
+        <div class="alert-icon" id="alertIcon">⚠️</div>
+        <h3 id="alertTitle" style="color: var(--ut-primary); margin-bottom: 8px; font-size: 1.15rem;">Pemberitahuan</h3>
+        <p class="alert-message" id="alertMessage">Pesan informasi</p>
+        <button type="button" class="btn-primary btn-modal-close" style="width: 120px; margin: 0 auto; display: block;">OK</button>
+      </div>
+    </div>
+  </div>
+
+  <!-- Footer -->
+  <footer class="site-footer">
+    <p>&copy; 2026 <strong>SITTA Universitas Terbuka</strong> &bull; Praktik Pemrograman Berbasis Web (STSI4209)</p>
+    <p style="margin-top: 4px; color: #64748B;">Disusun oleh: Aulia Ardi Nur Waluyo (NIM: 052144403) &bull; UPBJJ-UT Jakarta Selatan</p>
+  </footer>
+
+  <!-- Import JS -->
+  <script src="js/data.js"></script>
+  <script src="js/script.js"></script>
+</body>
+</html>

@@ -1,0 +1,194 @@
+<!DOCTYPE html>
+<html lang="id">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Tracking Pengiriman - SITTA Universitas Terbuka</title>
+  <link rel="stylesheet" href="css/style.css">
+</head>
+<body>
+
+  <!-- Site Header -->
+  <header class="site-header">
+    <div class="header-top">
+      <a href="dashboard.html" class="brand-wrapper">
+        <img src="assets/logo-ut.png" alt="Logo UT" class="brand-logo">
+        <div>
+          <div class="brand-title">SITTA UNIVERSITAS TERBUKA</div>
+          <div class="brand-subtitle">Sistem Informasi Tiras &amp; Transaksi Bahan Ajar</div>
+        </div>
+      </a>
+
+      <div class="user-badge">
+        <div class="user-info">
+          <div class="user-name" id="headerUserName">Memuat...</div>
+          <div class="user-role" id="headerUserRole">User</div>
+        </div>
+        <button id="btnLogout" class="btn-logout" title="Keluar dari sistem">Logout</button>
+      </div>
+    </div>
+
+    <!-- Navigation Bar Utama -->
+    <nav class="navbar" aria-label="Navigasi Utama">
+      <ul class="nav-list">
+        <li class="nav-item">
+          <a href="dashboard.html" class="nav-link">Dashboard</a>
+        </li>
+        <li class="nav-item">
+          <a href="stok.html" class="nav-link">Informasi Bahan Ajar</a>
+        </li>
+        <li class="nav-item">
+          <a href="tracking.html" class="nav-link active">Tracking Pengiriman</a>
+        </li>
+        <li class="nav-item has-dropdown">
+          <a href="#" class="nav-link" id="navLaporan" onclick="return false;">Laporan &#9662;</a>
+          <div class="dropdown-menu">
+            <a href="#" class="dropdown-item" onclick="showCustomAlert('Laporan Monitoring DO Bahan Ajar', 'Laporan', '📊'); return false;">
+              Monitoring Progress DO Bahan Ajar
+            </a>
+            <a href="#" class="dropdown-item" onclick="showCustomAlert('Rekap Bahan Ajar', 'Laporan', '📑'); return false;">
+              Rekap Bahan Ajar
+            </a>
+          </div>
+        </li>
+        <li class="nav-item">
+          <a href="#" class="nav-link" onclick="showCustomAlert('Histori Transaksi Bahan Ajar', 'Histori', '🕒'); return false;">
+            Histori Transaksi Bahan Ajar
+          </a>
+        </li>
+      </ul>
+    </nav>
+  </header>
+
+  <!-- Main Content -->
+  <main class="main-container">
+    
+    <!-- Pencarian Nomor Delivery Order -->
+    <section class="card-section">
+      <h1 class="section-title">Lacak Pengiriman Bahan Ajar</h1>
+      <p class="section-subtitle">Masukkan nomor Delivery Order (DO) / Billing untuk melihat status pengiriman paket secara real-time.</p>
+
+      <form id="formTracking" class="search-bar-row">
+        <input 
+          type="text" 
+          id="inputNomorDO" 
+          class="form-input" 
+          placeholder="Contoh: 2023001234 atau 2023005678" 
+          required 
+          autocomplete="off"
+        >
+        <button type="submit" class="btn-search">Cari Paket</button>
+      </form>
+
+      <div style="margin-top: 14px; font-size: 0.82rem; color: #64748B;">
+        Pilihan Nomor DO untuk dicoba (dari <code>data.js</code>): 
+        <a href="#" style="color: #0284C7; font-weight: 600; text-decoration: underline;" onclick="document.getElementById('inputNomorDO').value='2023001234'; document.getElementById('formTracking').dispatchEvent(new Event('submit')); return false;">2023001234 (Rina Wulandari - Dalam Perjalanan)</a> | 
+        <a href="#" style="color: #0284C7; font-weight: 600; text-decoration: underline;" onclick="document.getElementById('inputNomorDO').value='2023005678'; document.getElementById('formTracking').dispatchEvent(new Event('submit')); return false;">2023005678 (Agus Pranoto - Selesai Antar)</a>
+      </div>
+    </section>
+
+    <!-- Hasil Tracking (Tampil saat data ditemukan) -->
+    <div id="trackingResultContainer" style="display: none;">
+      
+      <!-- Kartu Ringkasan Informasi Pengiriman -->
+      <section class="tracking-header-card">
+        <div class="tracking-header-top">
+          <div>
+            <span style="font-size: 0.8rem; text-transform: uppercase; color: #93C5FD; display: block;">Nomor Delivery Order (DO)</span>
+            <span class="tracking-do-number" id="resNomorDO">-</span>
+          </div>
+          <div>
+            <span class="status-badge" id="resStatusBadge">-</span>
+          </div>
+        </div>
+
+        <div class="tracking-info-grid">
+          <div>
+            <div class="info-item-label">Nama Penerima / Mahasiswa</div>
+            <div class="info-item-value" id="resNama">-</div>
+          </div>
+          <div>
+            <div class="info-item-label">Jasa Ekspedisi</div>
+            <div class="info-item-value" id="resEkspedisi">-</div>
+          </div>
+          <div>
+            <div class="info-item-label">Tanggal Kirim</div>
+            <div class="info-item-value" id="resTanggalKirim">-</div>
+          </div>
+          <div>
+            <div class="info-item-label">Kode Paket / Lokasi</div>
+            <div class="info-item-value" id="resPaket">-</div>
+          </div>
+          <div>
+            <div class="info-item-label">Total Pembayaran</div>
+            <div class="info-item-value" id="resTotal" style="color: var(--ut-accent);">-</div>
+          </div>
+        </div>
+      </section>
+
+      <!-- Simulasi Status Progress Stepper -->
+      <section class="card-section">
+        <h2 style="font-size: 1.05rem; font-weight: 700; color: var(--ut-primary); margin-bottom: 8px;">
+          Progres Alur Distribusi Bahan Ajar
+        </h2>
+        
+        <div class="progress-stepper">
+          <div class="progress-stepper-fill" id="stepperFill"></div>
+          
+          <div class="step-item" id="step1">
+            <div class="step-node">1</div>
+            <div class="step-label">Loket UT Tangsel</div>
+          </div>
+
+          <div class="step-item" id="step2">
+            <div class="step-node">2</div>
+            <div class="step-label">Hub Ekspedisi</div>
+          </div>
+
+          <div class="step-item" id="step3">
+            <div class="step-node">3</div>
+            <div class="step-label">Kantor Cabang / Kota Tujuan</div>
+          </div>
+
+          <div class="step-item" id="step4">
+            <div class="step-node">4</div>
+            <div class="step-label">Selesai Antar / Diterima</div>
+          </div>
+        </div>
+      </section>
+
+      <!-- Rincian Timeline Perjalanan Paket -->
+      <section class="card-section">
+        <h2 class="timeline-title">Riwayat Perjalanan Paket (Tracking Logs)</h2>
+        <ul class="timeline-list" id="timelineList">
+          <!-- Item perjalanan dirender secara dinamis oleh DOM di script.js -->
+        </ul>
+      </section>
+
+    </div>
+
+  </main>
+
+  <!-- Modal Box: Custom Alert Box / Pop-up Feedback -->
+  <div class="modal-overlay" id="modalAlert">
+    <div class="modal-box" style="max-width: 400px;">
+      <div class="modal-body alert-box">
+        <div class="alert-icon" id="alertIcon">⚠️</div>
+        <h3 id="alertTitle" style="color: var(--ut-primary); margin-bottom: 8px; font-size: 1.15rem;">Pemberitahuan</h3>
+        <p class="alert-message" id="alertMessage">Pesan informasi</p>
+        <button type="button" class="btn-primary btn-modal-close" style="width: 120px; margin: 0 auto; display: block;">OK</button>
+      </div>
+    </div>
+  </div>
+
+  <!-- Footer -->
+  <footer class="site-footer">
+    <p>&copy; 2026 <strong>SITTA Universitas Terbuka</strong> &bull; Praktik Pemrograman Berbasis Web (STSI4209)</p>
+    <p style="margin-top: 4px; color: #64748B;">Disusun oleh: Aulia Ardi Nur Waluyo (NIM: 052144403) &bull; UPBJJ-UT Jakarta Selatan</p>
+  </footer>
+
+  <!-- Import JS -->
+  <script src="js/data.js"></script>
+  <script src="js/script.js"></script>
+</body>
+</html>
